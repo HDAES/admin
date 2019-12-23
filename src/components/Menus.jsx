@@ -34,6 +34,13 @@ const menusList = [
         index: "/ui/notification", 
       },
       {
+        name: "Tabs标签页",
+        index: "/ui/tabs", 
+      }, {
+        name: "图片画廊",
+        index: "/ui/gallery", 
+      },
+      {
         name: "表单组件",
         index: "/ui/form",
       }
@@ -54,7 +61,7 @@ export default ({history}) => {
         xl686.com
       </Link>
 
-      <Menu theme="dark" >{menuNode}</Menu>
+      <Menu theme="dark" mode="inline">{menuNode}</Menu>
     </div>
   );
 };
