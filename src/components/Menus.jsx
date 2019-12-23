@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Icon } from "antd";
-
 const menusList = [
   {
     name: "首页",
@@ -14,9 +13,29 @@ const menusList = [
     icon:'ant-design',
     children: [
       {
+        name: "图标",
+        index: "/ui/icon",
+        
+      },
+      {
+        name: "按钮",
+        index: "/ui/button",
+        
+      },{
+        name: "弹框，抽屉",
+        index: "/ui/modals", 
+      },
+      {
+        name: "Loading",
+        index: "/ui/loading", 
+      },
+      {
+        name: "通知提示",
+        index: "/ui/notification", 
+      },
+      {
         name: "表单组件",
-        index: "/form",
-        icon: "form"
+        index: "/ui/form",
       }
     ]
   }
@@ -55,7 +74,7 @@ function renderMenu(data) {
       return (
         <Menu.Item title={item.name} key={item.index}>
           <Link to={item.index}>
-              <Icon type={item.icon} />
+            
               {item.name}</Link>
         </Menu.Item>
       );

@@ -48,19 +48,21 @@
 .admin {
   display: flex;
   height: 100%;
+  background-color: #F1F1F1;
   .main {
     flex: 1;
     .header {
       position: fixed;
       top: 0;
-      left: 200px;
+      left: 300px;
       right: 0;
       display: flex;
       align-items: center;
       justify-content: flex-end;
       height: 60px;
       padding: 0 20px;
-      border-bottom: 1px solid peru;
+      background-color: #FFFFFF;
+      border-bottom: 2px solid peru;
       z-index: 9;
         .icon-btn {
           font-size: 30px;
@@ -78,13 +80,16 @@
         }
     }
     .content{
-        padding-top: 60px;
-        height: 1500px;
+        position: relative;
+        padding: 80px 20px 0;
+        height: 100%;
+        
+        
     }
   }
 
   .menus {
-    width: 200px;
+    width: 300px;
     background-color: #001529;
     .logo {
       display: flex;
@@ -92,8 +97,8 @@
       color: #ffffff;
       font-family: "mo";
       font-size: 30px;
-      height: 60px;
-      background-color: #001529;
+      height: 100px;
+      background-color: #002150;
       img {
         width: 30px;
         margin: 0 10px;
@@ -103,4 +108,76 @@
 }
 a:hover {
   text-decoration: none;
+}
+
+
+//ui
+
+.ui-base{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  .ui-card{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 49.5%;
+    margin-bottom: 20px;
+    button:nth-child(2n){
+      margin: 0 20px;
+    }
+  }
+}
+.icon-base{
+  form{
+    display: flex;
+    justify-content: space-between;
+  }
+  .icon-content{
+    margin-top: 20px;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    .icon-item{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .title{
+        flex: 1;
+        padding: 10px 20px;
+        font-weight: bold;
+        color:#333333;
+        flex-basis: 100%;
+      }
+      .icon{
+        flex-basis: 20%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #F1F1F1;
+        height: 120PX;
+        transition: all .3s;
+        border-radius: 5px;
+        cursor: pointer;
+        .anticon{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 48px;
+          width: 48px;
+          font-size: 36px;
+          transition:  font-size .3s;
+        }
+      }
+      .icon:hover{
+        background-color: orange;
+        color:#FFFFFF;
+        .anticon{
+          font-size: 48px;
+        }
+      }
+    }
+    
+  }
 }

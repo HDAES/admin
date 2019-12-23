@@ -1,13 +1,19 @@
 import React from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom'
-import Admin from './Admin'
-import login from './pages/login';
-import Index from './pages/index'
-import Form from './pages/ui/Form'
+import { HashRouter as Router, Route, Switch,Redirect } from 'react-router-dom'
+import routes from './router.config'
+
+
 export default () => <Router>
     <App>
         <Switch>
-            <Route path="/login" component={login} />
+            {
+               RouteWithSubRoutes(routes)
+              
+            }
+
+
+
+            {/* <Route path="/login" component={login} />
             <Route path="/" render={ () => (
                 <Admin>
                     <Switch>
@@ -15,7 +21,7 @@ export default () => <Router>
                         <Route path="/form" component={Form} />
                     </Switch>
                 </Admin>
-            )} />
+            )} /> */}
         </Switch>
     </App>
 </Router>
@@ -27,3 +33,20 @@ export default () => <Router>
 function App({children}) {
     return <div style={{height:'100%'}}>{children}</div>
 }
+
+
+function RouteWithSubRoutes (routesMap){
+    return routesMap.map( (item, index) =>{
+        if(item.routes){
+            return <Route path={item.path} key={index} render={ ()=>
+                <item.component>
+                    { RouteWithSubRoutes(item.routes)} 
+                </item.component>
+            }/>
+        }else{
+            return item.auth ?  <Route path={item.path}  render={ () => <Redirect to="/login"/>} key={index}/>
+            :<Route  {...item} key={index}/>
+        }
+    })
+}
+
