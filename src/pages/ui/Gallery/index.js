@@ -1,6 +1,7 @@
 import React,{ useState, useEffect } from 'react';
 import { Card, Row, Col, Modal } from 'antd';
-let imgSrcPrefix = 'http://qiniu.xl686.com/20191223_admin_gallery_'
+let imgSrcPrefix = 'https://qiniu.xl686.com/20191223_admin_gallery_'
+
 export default () =>{
    
     const [imgList,setImgList] = useState([])
@@ -11,7 +12,7 @@ export default () =>{
         for(let i = 0; i<5; i++){
             list[i] = []
             for(let j = 0; j<5; j++){
-                list[i][j] = <Card key={i-j} onClick={() => handleClick(i,j)}  style={{marginBottom:10}}  cover={<img src={imgSrcPrefix+i+j+'.png'} alt="React"/>}>
+                list[i][j] = <Card key={i-j} onClick={() => handleClick(i,j)}  style={{marginBottom:10}}  cover={<img src={imgSrcPrefix+i+j+'.png?v='+Date.parse(new  Date())} alt="React"/>}>
                        <Card.Meta title="React Admin" description="I'm HADES"/>
                 </Card>
             }
@@ -22,7 +23,7 @@ export default () =>{
     function handleClick(i,j){
         setVisible(true)
         console.log(i)
-        setImgUrl(imgSrcPrefix+i+j+'.png')
+        setImgUrl(imgSrcPrefix+i+j+'.png?v='+Date.parse(new  Date()))
     }
     return(
         <div className="gallery-card">
