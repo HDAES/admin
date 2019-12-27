@@ -1,13 +1,21 @@
-import React from 'react';
+import React,{ useEffect } from 'react';
 import { Form, Input, Icon, Button } from 'antd';
-export default Form.create()(({form, history}) => {
+import { connect } from 'react-redux'
+import { getMenus } from '../redux/action'
+import  axios  from '../axios'
+export default connect()(Form.create()(({form, history,dispatch}) => {
 
-    
+    useEffect( ()=>{
+        
+    },[])
 
      function submit (){
         form.validateFields( (err) => {
             if(!err){
                console.log(history)
+               axios({method:'GET',url:'/api/user/menus'}).then( res=>{
+                    dispatch(getMenus(res))
+                })
                history.push('/index')
             }
         })   
@@ -50,4 +58,4 @@ export default Form.create()(({form, history}) => {
             </Form>
         </div>
     </div>
-})
+}))

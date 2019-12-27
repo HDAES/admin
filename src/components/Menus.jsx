@@ -1,58 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Icon } from "antd";
-const menusList = [
-  {
-    name: "首页",
-    index: "/index",
-    icon: "home"
-  },
-  {
-    name: "常用组件",
-    index: "/ui",
-    icon:'ant-design',
-    children: [
-      {
-        name: "图标",
-        index: "/ui/icon",
-        
-      },
-      {
-        name: "按钮",
-        index: "/ui/button",
-        
-      },{
-        name: "弹框，抽屉",
-        index: "/ui/modals", 
-      },
-      {
-        name: "Loading",
-        index: "/ui/loading", 
-      },
-      {
-        name: "通知提示",
-        index: "/ui/notification", 
-      },
-      {
-        name: "Tabs标签页",
-        index: "/ui/tabs", 
-      }, {
-        name: "图片画廊",
-        index: "/ui/gallery", 
-      },
-      {
-        name: "表单组件",
-        index: "/ui/form",
-      }
-    ]
+
+import { connect } from 'react-redux'
+
+const mapStateToProps = state =>{
+  return {
+    levelmenus:state.levelmenus
   }
-];
-export default ({history}) => {
+}
+
+export default connect(mapStateToProps)(({levelmenus}) => {
   const [menuNode, setMenuNode] = useState(null);
   useEffect(() => {
-    setMenuNode(renderMenu(menusList));
+    
+    setMenuNode(renderMenu(levelmenus));
+     
     return () => {};
-  }, []);
+  }, [levelmenus]);
 
   return (
     <div className="menus">
@@ -61,10 +26,12 @@ export default ({history}) => {
         xl686.com
       </Link>
 
-      <Menu theme="dark" mode="inline">{menuNode}</Menu>
+      <Menu theme="dark" mode="inline">{ menuNode}</Menu>
     </div>
   );
-};
+})
+
+
 
 /**
  * 渲染导航列表
@@ -73,14 +40,14 @@ function renderMenu(data) {
   return data.map(item => {
     if (item.children) {
       return (
-        <Menu.SubMenu title={<span><Icon type={item.icon} />{item.name} </span>} key={item.index} >
+        <Menu.SubMenu title={<span>  {item.icon !=null? <Icon type={item.icon} /> :null }   {item.name} </span>} key={item.id} >
           {renderMenu(item.children)}
         </Menu.SubMenu>
       );
     } else {
       return (
-        <Menu.Item title={item.name} key={item.index}>
-          <Link to={item.index}>
+        <Menu.Item title={item.name} key={item.id}>
+          <Link to={item.path}>
             
               {item.name}</Link>
         </Menu.Item>
