@@ -3,13 +3,14 @@ import { Modal } from 'antd'
 
 export default (options) =>{
         let baseUrl = 'http://127.0.0.1:3001'
-
         return new Promise( (resolve,reject) =>{
+            
             axios({
                 url:options.url,
                 method:options.method,
                 baseURL:baseUrl,
                 timeout:5000,
+                data:options.data,
                 params:(options.data && options.data.params) || ''
             }).then( (response) =>{
                 if(response.status === 200){

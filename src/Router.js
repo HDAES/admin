@@ -1,20 +1,8 @@
 import React from 'react';
 import { HashRouter as Router, Route, Switch,Redirect } from 'react-router-dom'
-import Login from "./pages/login";
-import Admin from "./Admin";
-import Index from './pages/index'
-import Form from './pages/ui/Form'
-import Button from "./pages/ui/Button";
-import Icons from "./pages/ui/Icons";
-import Modals from "./pages/ui/Modals";
-import Loading from "./pages/ui/Loading";
-import Note from "./pages/ui/Note";
-import Tabs from "./pages/ui/Tabs";
-import Gallery from "./pages/ui/Gallery";
-
-
+import Routes from './router.config'
 import { connect } from 'react-redux'
-
+import Login from "./pages/login";
 const mapStateToProps = state =>{
   return {
     menus:state.menus
@@ -22,17 +10,24 @@ const mapStateToProps = state =>{
 }
 
 export default connect(mapStateToProps)(({menus}) => {
-    console.log(menus)
-    const Routes = [
-        {path:'/login', name: 'login', component: Login, auth: false },
-        {path:'/',name: 'adminLayout', component: Admin, auth: false, routes: menus},
-    ]
+    Routes[0].routes.map( item =>{
+        menus.forEach( el =>{
+            if(item.path === el.path){
+                item.auth = true
+            }
+        })
+        return true
+    })
+    if(menus.length===0){
+        window.location.href='/#/login'
+    }  
     return (
         <Router>
             <App>
                 <Switch>
+                    <Route path='/login' component={Login}/>
                     {
-                        RouteWithSubRoutes(Routes)
+                        RouteWithSubRoutes(Routes,menus)
                     }
 
 
@@ -61,21 +56,21 @@ function App({children}) {
 }
 
 
-function RouteWithSubRoutes (routesMap){
+function RouteWithSubRoutes (routesMap,menus){
     return routesMap.map( (item, index) =>{
         if(item.routes){
             return <Route path={item.path} key={index} render={ ()=>{
                 if(item.component!=null){
                     return <item.component>
-                        { RouteWithSubRoutes(item.routes)} 
+                        { RouteWithSubRoutes(item.routes,menus)} 
                     </item.component>
                 }  
             }
                
             }/>
         }else{
-            return item.auth ?  <Route path={item.path}  render={ () => <Redirect to="/login"/>} key={index}/>
-            :<Route  {...item} key={index}/>
+            return item.auth?<Route  {...item} key={index}/>
+            : <Route path={item.path}  render={ () => <Redirect to="/login"/>} key={index}/>
         }
     })
 }
