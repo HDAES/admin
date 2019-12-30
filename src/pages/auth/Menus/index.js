@@ -99,7 +99,7 @@ export default connect(mapStateToProps)(Form.create()(({dispatch,form, all_menus
                             <Form.Item label="Icon">
                                     {
                                         getFieldDecorator('icon')(
-                                            <Input placeholder="图标" disabled={!isFirst}/>
+                                            <Input placeholder="图标" disabled={isFirst}/>
                                         )
                                     }
                                     
