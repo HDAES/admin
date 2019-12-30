@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { Icon,Badge, Avatar, Dropdown, Menu} from "antd";
-export default () => {
-  const [full, setFull] = useState(false);
- 
+import { connect } from 'react-redux'
 
+const mapStateToProps = state =>{
+  return {
+    user:state.user
+  }
+}
+export default connect(mapStateToProps)(({user}) => {
+  const [full, setFull] = useState(false);
   function handleFull() {
     let dos = document.documentElement;
     if (full) {
@@ -67,8 +72,8 @@ export default () => {
         </Badge>
        
         <Dropdown overlay={menu}>
-           <div className="avatar"><Avatar  size={36} icon="user" />  admin</div>
+           <div className="avatar"><Avatar  size={36} icon="user" />{user.name}</div>
         </Dropdown> 
     </div>
   );
-};
+})

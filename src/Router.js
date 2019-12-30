@@ -11,11 +11,9 @@ const mapStateToProps = state =>{
 
 export default connect(mapStateToProps)(({menus}) => {
     Routes[0].routes.map( item =>{
-        menus.forEach( el =>{
-            if(item.path === el.path){
-                item.auth = true
-            }
-        })
+        if(menus.indexOf(item.path)>-1){
+            item.auth = true
+        }
         return true
     })
     if(menus.length===0){

@@ -3,18 +3,28 @@ import { Card, Button, Table, Modal, Input, Form, Tag, Icon, Tree, message } fro
 import api from '../../axios/api'
 import axios from '../../axios'
 import { formatTime,defaultPage } from '../../utils'
+import { connect } from 'react-redux'
 const { TreeNode } = Tree;
 const { confirm } = Modal;
-export default  Form.create()(({form}) =>{
+
+const mapStateToProps = state =>{
+    return {
+      user:state.user
+    }
+  }
+export default  connect(mapStateToProps)(Form.create()(( {form, user } ) =>{
     const [role,setRole] = useState([])
     const [page,setPage] = useState(1)
     const [addRoleVisible,setRoleVisible] = useState(false)
     const [pagination,setPagination] = useState({})
     const [refresh,setRefresh] = useState(false)
-    const [selecteKey,setSelecteKey] = useState()
-    const [authVisible,setAuthVisible] = useState(false)
+    const [selecteKey,setSelecteKey] = useState()   //选中的 key
+    const [authVisible,setAuthVisible] = useState(false) //权限弹框 控制
     const [authRows,setAuthRows] = useState()   //选中时当前行的数据
-    const [roleMenus,setRoleMenus] = useState([])   
+    const [roleMenus,setRoleMenus] = useState([])  // 当前用户的 菜单列表
+    const [updataVisible,setUpdataVisible ] = useState(false) // 修改密码弹框
+    const [newPassWord,setNewPassWord] = useState()
+
     useEffect(() => {
         axios({method:'GET',url:api.getRole,data:{params:{page}}}).then( res =>{
             res.list.map( (item) =>{
@@ -35,11 +45,10 @@ export default  Form.create()(({form}) =>{
         onChange:(key) =>setSelecteKey(key),
         selectedRowKeys:selecteKey
     }
-   
+   // 权限操作
     function Authority(rows){
         axios({method:'GET',url:api.getRoleMenus,data:{params:{role_id:rows.id } }}).then( res =>{
             setRoleMenus(res)
-            setAuthRows(rows)
             setAuthVisible(true)
         })
     }
@@ -71,6 +80,24 @@ export default  Form.create()(({form}) =>{
         }
     }
 
+    function changePassWord(){
+        if(user.id === 1 || user.id === 2){
+           setUpdataVisible(true)
+        }else{
+            message.error('权限不足')
+        }
+    }
+    function updataPassWord(){
+        axios({method:'POST',url:api.updataPassWord,data:{ password:newPassWord,id:authRows.id}}).then( res =>{
+            if(res.code === 0){
+                message.success(res.message)
+                setUpdataVisible(false)
+            }else{
+                message.error(res.err)
+                setUpdataVisible(false)
+            }
+        })
+    }
     // 表头
     const columns   = [
         {
@@ -115,7 +142,7 @@ export default  Form.create()(({form}) =>{
         },{
             title:'操作',
             render:(rows) =><div>
-                <Button size="small" type="link">修改密码</Button>
+                <Button size="small" type="link" onClick={() => changePassWord(rows)}>修改密码</Button>
             </div>
         }
     ]
@@ -132,13 +159,26 @@ export default  Form.create()(({form}) =>{
                 rowSelection={rowSelection}  
                 style={{marginTop:20}} 
                 pagination={pagination}
+                onRow={ record  =>{
+                    return {
+                        onClick:() =>{ setSelecteKey( [record.key]); setAuthRows(record)}
+                    }
+                }}
             ></Table>
 
             <AddModal form={form} setRefresh={()=>setRefresh((e)=>!e)} addRoleVisible={addRoleVisible} setRoleVisible={()=>setRoleVisible(false)}/>
             <AuthModal  roleMenus={roleMenus} authVisible={authVisible} setAuthVisible={()=>setAuthVisible(false)} authRows={authRows}/>
+            <Modal
+                title="密码修改"
+                visible={updataVisible}
+                onOk={updataPassWord}
+                onCancel={()=>setUpdataVisible(false)}
+                >
+               <Input placeholder='密码' onChange={(e)=>setNewPassWord(e.target.value )}/>
+            </Modal>
         </Card>
     )
-})
+}))
 
 
 
@@ -245,7 +285,7 @@ function renderTreeNode (authMenus){
     return authMenus.map( (item) =>{
         if(item.children){
             return  (
-                <TreeNode title="平台权限" key={item.path}>
+                <TreeNode title={item.name} key={item.path}>
                        { renderTreeNode(item.children) }
                 </TreeNode>
             )

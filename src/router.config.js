@@ -9,6 +9,7 @@ import Note from "./pages/ui/Note";
 import Tabs from "./pages/ui/Tabs";
 import Gallery from "./pages/ui/Gallery";
 import role from "./pages/auth/role";
+import Menus from "./pages/auth/Menus";
 const Routes = [
     {path:'/',name: 'adminLayout', component: Admin, auth: true, routes: [
         {path:'/index', name: 'index', component:Index, auth:false},
@@ -21,6 +22,7 @@ const Routes = [
         {path:'/ui/gallery', name: 'gallery', component:Gallery, auth:false},
         {path:'/ui/form', name: 'form', component:Form, auth:false},
         {path:'/auth/role', name: 'role', component:role, auth:false},
+        {path:'/auth/menus', name:'menus',component:Menus,auth:false}
     ]},
 ]
 

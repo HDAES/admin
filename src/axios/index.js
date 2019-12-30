@@ -1,17 +1,23 @@
 import axios from 'axios'
-import { Modal } from 'antd'
+import { Modal, message } from 'antd'
+
+const TOKEN_KEY = 'AS_MALL_ACCESS_TOKEN';
+
+
 
 export default (options) =>{
         let baseUrl = 'http://127.0.0.1:3001'
         return new Promise( (resolve,reject) =>{
-            
             axios({
                 url:options.url,
                 method:options.method,
                 baseURL:baseUrl,
                 timeout:5000,
                 data:options.data,
-                params:(options.data && options.data.params) || ''
+                params:(options.data && options.data.params) || '',
+                headers:{
+                    "Authorization": localStorage.getItem(TOKEN_KEY)
+                }
             }).then( (response) =>{
                 if(response.status === 200){
                     let res = response.data
@@ -19,13 +25,11 @@ export default (options) =>{
                         resolve(res.data)
                     }else{
                         reject(res)
-                        Modal.info({
-                            title:'提示',
-                            content:JSON.stringify(res.message) 
-                        })
+                        message.error(JSON.stringify(res.message))
                     }
                 }
             }).catch( err =>{
+                console.log(err)
                 Modal.warn({
                     title:'提示',
                     content:err.message

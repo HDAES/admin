@@ -1,7 +1,7 @@
 import React,{ useEffect } from 'react';
 import { Form, Input, Icon, Button } from 'antd';
 import { connect } from 'react-redux'
-import { getMenus } from '../redux/action'
+import { getMenus, setUser, SetUserToken, setAllMenus } from '../redux/action'
 import  axios  from '../axios'
 import api from '../axios/api'
 export default connect()(Form.create()(({form,dispatch}) => {
@@ -13,11 +13,15 @@ export default connect()(Form.create()(({form,dispatch}) => {
      function submit (){
         form.validateFields( (err) => {
             if(!err){
-               
                axios({method:'POST',url:api.Login,data:form.getFieldsValue()}).then( res=>{
-                    //dispatch(getMenus(res))
+                    dispatch(getMenus(res))
+                    dispatch(setAllMenus(res.all_menus))
+                    localStorage.setItem('AS_MALL_ACCESS_TOKEN',res.TOKEN)
+                    dispatch(SetUserToken(res.TOKEN))
+                    dispatch(setUser(res.user))
+                    window.location.href='/#/index'
                 })
-            //     window.location.href='/#/index'
+                
             }
         })   
     }
@@ -30,6 +34,7 @@ export default connect()(Form.create()(({form,dispatch}) => {
                 <Form.Item>
                     {
                         getFieldDecorator('userName',{
+                            initialValue:'hades',
                             rules:[
                                 { required: true, message: 'Please input your username!' },
                                 { min:5,max:10, message: '长度不在范围内' },
@@ -43,6 +48,7 @@ export default connect()(Form.create()(({form,dispatch}) => {
                 <Form.Item>
                     {
                         getFieldDecorator('passWord',{
+                            initialValue:'123456',
                             rules:[
                                 { required: true, message: 'Please input your password!' },
                                 { min:5,max:10, message: '长度不在范围内' },
