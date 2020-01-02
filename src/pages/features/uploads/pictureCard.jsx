@@ -1,6 +1,6 @@
 import React,{ useState} from 'react';
 import { Upload, Icon, Modal, message } from 'antd';
-import api from '../../axios/api'
+import api from '../../../axios/api'
 
 export default () =>{
     const [fileList,setFileList] = useState([

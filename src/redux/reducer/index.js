@@ -2,7 +2,8 @@ import { type } from "../action";
 
 let menus = JSON.parse(sessionStorage.getItem('sessionRedux')) ? JSON.parse(sessionStorage.getItem('sessionRedux')).menus : [];
 let levelmenus = JSON.parse(sessionStorage.getItem('sessionRedux')) ? JSON.parse(sessionStorage.getItem('sessionRedux')).levelmenus : [];
-let all_menus = JSON.parse(sessionStorage.getItem('ALL_MENUS')) ? JSON.parse(sessionStorage.getItem('ALL_MENUS')): [];
+let all_menus = JSON.parse(sessionStorage.getItem('ALL_MENUS')) ? JSON.parse(sessionStorage.getItem('ALL_MENUS')).all_menus: [];
+let level_all_menus = JSON.parse(sessionStorage.getItem('ALL_MENUS')) ? JSON.parse(sessionStorage.getItem('ALL_MENUS')).level_all_menus: [];
 let token = sessionStorage.getItem('sessionTOKEN') ? sessionStorage.getItem('sessionTOKEN') : '';
 let user = sessionStorage.getItem('sessionUser') ? JSON.parse(sessionStorage.getItem('sessionUser')) : {};
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   levelmenus,
   menus,
   all_menus,
+  level_all_menus,
   token,
   user
 };
@@ -44,7 +46,8 @@ export default (state = initialState, action) => {
       sessionStorage.setItem('ALL_MENUS',JSON.stringify(action.all_menus))
       return {
         ...state,
-        all_menus:action.all_menus
+        all_menus:action.all_menus.all_menus,
+        level_all_menus:action.all_menus.level_all_menus
       }
     default :
       return{

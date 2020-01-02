@@ -15,7 +15,7 @@ export default connect()(Form.create()(({form,dispatch}) => {
             if(!err){
                axios({method:'POST',url:api.Login,data:form.getFieldsValue()}).then( res=>{
                     dispatch(getMenus(res))
-                    dispatch(setAllMenus(res.all_menus))
+                    dispatch(setAllMenus(res))
                     localStorage.setItem('AS_MALL_ACCESS_TOKEN',res.TOKEN)
                     dispatch(SetUserToken(res.TOKEN))
                     dispatch(setUser(res.user))

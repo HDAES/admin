@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Tabs, Icon, Upload, message } from 'antd';
-import PictureCard from './pictureCard'
-//import axios from '../../axios'
-import api from '../../axios/api'
-import '../common.less'
+import api from '../../../axios/api'
+import '../../common.less'
 const { TabPane } = Tabs;
 export default () => {
     const [imageUrl,setImageUrl] = useState()
@@ -63,10 +61,7 @@ export default () => {
                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
                     </Upload>
 
-                    <PictureCard />
-                </TabPane>
-                <TabPane tab="多张" key="2">
-                Content of Tab Pane 2
+                   
                 </TabPane>
             </Tabs>
         </Card>

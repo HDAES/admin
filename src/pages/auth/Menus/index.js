@@ -9,23 +9,26 @@ const { TreeNode } = Tree;
 const { Option } = Select;
 const mapStateToProps = state =>{
     return {
-      all_menus:state.all_menus
+      all_menus:state.all_menus,
+      level_all_menus:state.level_all_menus
     }
   }
-export default connect(mapStateToProps)(Form.create()(({dispatch,form, all_menus}) =>{
-    const [isFirst,setIsFirst] = useState(false)
+export default connect(mapStateToProps)(Form.create()(({dispatch,form, all_menus,level_all_menus}) =>{
+    const [isFirst,setIsFirst] = useState(true)
     const { getFieldDecorator } = form
+    console.log(all_menus)
 
     function addMenus(){
         const { name, path, f_id, icon } = form.getFieldsValue()
         form.validateFields( (err) => {
             if(!err){
-                if(isFirst && f_id ===undefined){   
+                if(!isFirst && f_id ===undefined){   
                     message.error('请选择父级菜单')
                 }else{
                     axios({method:'POST',url:api.addMenus,data:{name, path,icon,f_id:f_id === undefined ? 0: f_id}}).then(res=>{
                         message.success(res.message)
-                        dispatch(setAllMenus(res.new_menus))
+                        dispatch(setAllMenus(res))
+                        form.resetFields()
                     })
                 }
             }
@@ -42,7 +45,7 @@ export default connect(mapStateToProps)(Form.create()(({dispatch,form, all_menus
                     message.error(res.err)
                 }else{
                     message.success(res.message)
-                    dispatch(setAllMenus(res.new_menus))
+                    dispatch(setAllMenus(res))
                 }
             })
         }
@@ -55,7 +58,7 @@ export default connect(mapStateToProps)(Form.create()(({dispatch,form, all_menus
                         defaultExpandAll
                         style={{flex:1}}
                     >
-                    { renderTreeNode(all_menus) }
+                    { renderTreeNode(level_all_menus) }
                     </Tree>
                     <Card title="添加菜单" style={{flex:2}}>
                         <Form   {...FormItemLayout} >
@@ -87,7 +90,7 @@ export default connect(mapStateToProps)(Form.create()(({dispatch,form, all_menus
                             <Form.Item label="父菜单">
                                     {
                                         getFieldDecorator('f_id')(
-                                            <Select placeholder="请选择" disabled={!isFirst}>
+                                            <Select placeholder="请选择" disabled={isFirst}>
                                                 
                                                 { 
                                                     renderSelectOption(all_menus)
@@ -99,7 +102,7 @@ export default connect(mapStateToProps)(Form.create()(({dispatch,form, all_menus
                             <Form.Item label="Icon">
                                     {
                                         getFieldDecorator('icon')(
-                                            <Input placeholder="图标" disabled={isFirst}/>
+                                            <Input placeholder="图标" disabled={!isFirst}/>
                                         )
                                     }
                                     
@@ -149,14 +152,10 @@ function renderTreeNode (authMenus){
     })
 }
 
-// 渲染 下来列表
-function renderSelectOption (all_menus){
+// 渲染 下拉列表
+function renderSelectOption (all_menus){ 
     return all_menus.map( (item) =>{
-        if(item.children){
-           return renderSelectOption(item.children)
-        }else{
-        return <Option value={item.id} key={item.id}>{item.name}</Option>
-        } 
+        return <Option value={item.id} key={item.id}>{item.name}</Option> 
     })
 }
 

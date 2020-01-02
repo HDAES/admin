@@ -11,6 +11,7 @@ import Gallery from "./pages/ui/Gallery";
 import role from "./pages/auth/role";
 import Menus from "./pages/auth/Menus";
 import Uploads from "./pages/features/uploads";
+import Echarts from "./pages/chart/echarts";
 const Routes = [
     {path:'/',name: 'adminLayout', component: Admin, auth: true, routes: [
         {path:'/index', name: 'index', component:Index, auth:false},
@@ -24,7 +25,9 @@ const Routes = [
         {path:'/ui/form', name: 'form', component:Form, auth:false},
         {path:'/auth/role', name: 'role', component:role, auth:false},
         {path:'/auth/menus', name:'menus',component:Menus,auth:false},
-        {path:'/features/uploads', name:'uploads',component:Uploads,auth:false}
+        {path:'/features/uploads', name:'uploads',component:Uploads,auth:false},
+        {path:'/chart/echarts', name:'echarts',component:Echarts,auth:false},
+        {path:'/chart/recharts', name:'recharts',component:Uploads,auth:false}
     ]},
 ]
 
