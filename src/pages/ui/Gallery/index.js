@@ -1,6 +1,6 @@
 import React,{ useState, useEffect } from 'react';
 import { Card, Row, Col, Modal } from 'antd';
-let imgSrcPrefix = 'https://qiniu.xl686.com/20191223_admin_gallery_'
+let imgSrcPrefix = 'http://qiniu.xl686.com/20191223_admin_gallery_'
 
 export default () =>{
    

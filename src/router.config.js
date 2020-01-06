@@ -12,6 +12,8 @@ import role from "./pages/auth/role";
 import Menus from "./pages/auth/Menus";
 import Uploads from "./pages/features/uploads";
 import Echarts from "./pages/chart/echarts";
+import G2 from "./pages/chart/g2";
+import Quill from './pages/edit/quill'
 const Routes = [
     {path:'/',name: 'adminLayout', component: Admin, auth: true, routes: [
         {path:'/index', name: 'index', component:Index, auth:false},
@@ -27,7 +29,8 @@ const Routes = [
         {path:'/auth/menus', name:'menus',component:Menus,auth:false},
         {path:'/features/uploads', name:'uploads',component:Uploads,auth:false},
         {path:'/chart/echarts', name:'echarts',component:Echarts,auth:false},
-        {path:'/chart/recharts', name:'recharts',component:Uploads,auth:false}
+        {path:'/chart/g2', name:'G2',component:G2,auth:false},
+        {path:'/edit/quill', name:'quill',component:Quill,auth:false}
     ]},
 ]
 
