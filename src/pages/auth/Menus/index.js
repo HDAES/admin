@@ -54,6 +54,7 @@ export default connect(mapStateToProps)(Form.create()(({dispatch,form, all_menus
         <Card title="菜单管理">
             <div className="manage-menus" style={{display:'flex'}}>
                     <Tree
+                        checkStrictly={true}
                         checkable
                         defaultExpandAll
                         style={{flex:1}}

@@ -10,5 +10,5 @@ export default {
     updataPassWord:'/api/user/updatapassword',       // 修改密码
     addMenus:'/api/manager/addmenus', // 添加菜单
     delMenus:'/api/manager/delmenus', //删除菜单
-    uploads:'http://127.0.0.1:3001/api/common/uploads',//上传图片
+    uploads:'/api/common/uploads',//上传图片
 }

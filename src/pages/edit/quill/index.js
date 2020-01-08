@@ -2,8 +2,12 @@ import React, { Component } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Card } from "antd";
+import axios from '../../../axios'
+import api from '../../../axios/api'
 const formats = [
-  "header",
+  'font',
+  'size',
+  'align',
   "bold",
   "italic",
   "underline",
@@ -13,8 +17,10 @@ const formats = [
   "bullet",
   "indent",
   "link",
-  "image"
+  "image",
+  "video"
 ];
+
 
 export default class Quill extends Component {
   constructor(props) {
@@ -24,14 +30,29 @@ export default class Quill extends Component {
       modules: {
         toolbar: {
           container: [
-            [{ header: [1, 2, false] }],
-            ["bold", "italic", "underline", "strike", "blockquote"],
-            [{ list: "ordered" }, { list: "bullet" }],
-            ["link", "image"],
+            [{ 'font': [] }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'align': [false,'center','right','justify'] }],
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+            ['blockquote', 'code-block'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+
+            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+           
+          
+            
+          
+            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+           
+        
+            ["link", "image", "video"],
             ["clean"]
           ],
           handlers: {
-            'image':this.showUploadBox.bind(this)
+            'image':this.showUploadBox.bind(this),
+            'video':this.showUploadBox.bind(this),
+            'clean':this.clearContent.bind(this)
           }
         }
       }
@@ -46,14 +67,19 @@ export default class Quill extends Component {
     input.click();
     input.onchange = () => {
       const file = input.files[0];
-      console.log(file)
-      let url = 'https://cdn2.jianshu.io/assets/default_avatar/4-3397163ecdb3855a0a4139c34a695885.jpg'
-      let quill=this.refs.reactQuillRef.getEditor();//获取到编辑器本身
-     
-        const cursorPosition =quill.getSelection().index;//获取当前光标位置
-          console.log(cursorPosition)
-          quill.insertEmbed(cursorPosition, "image",url);//插入图片
-          quill.setSelection(cursorPosition + 1);//光标位置加1
+      const fd = new FormData();
+      fd.append('file', file);
+
+      axios({
+        url:api.uploads,
+        method:'post',
+        data:fd
+      }).then(res =>{
+        let quill=this.refs.reactQuillRef.getEditor();//获取到编辑器本身
+        const cursorPosition = quill.getSelection().index;//获取当前光标位置
+        quill.insertEmbed(cursorPosition, "image",res.path);//插入图片
+        quill.setSelection(cursorPosition + 1);//光标位置加1
+      })
     }
   }
   changes = e => {
@@ -61,7 +87,12 @@ export default class Quill extends Component {
       content: e
     });
   };
-
+  //清空输入
+  clearContent(){
+    this.setState({
+      content:''
+    })
+  }
   render() {
     return (
       <Card>
