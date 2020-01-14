@@ -12,6 +12,7 @@ const mapStateToProps = state =>{
 
 export default connect(mapStateToProps)(({levelmenus}) => {
   const [menuNode, setMenuNode] = useState(null);
+  console.log(levelmenus)
   useEffect(() => {
     
     setMenuNode(renderMenu(levelmenus));
