@@ -15,6 +15,7 @@ import Echarts from "./pages/chart/echarts";
 import G2 from "./pages/chart/g2";
 import Quill from './pages/edit/quill'
 import BraftEditor from './pages/edit/braftEditor'
+import Emoji from './pages/icon/emoji'
 const Routes = [
     {path:'/',name: 'adminLayout', component: Admin, auth: true, routes: [
         {path:'/index', name: 'index', component:Index, auth:false},
@@ -32,7 +33,8 @@ const Routes = [
         {path:'/chart/echarts', name:'echarts',component:Echarts,auth:false},
         {path:'/chart/g2', name:'G2',component:G2,auth:false},
         {path:'/edit/quill', name:'quill',component:Quill,auth:false},
-        {path:'/edit/braft',name:'braftEditor',component:BraftEditor,auth:false}
+        {path:'/edit/braft',name:'braftEditor',component:BraftEditor,auth:false},
+        {path:'/icon/emoji',name:'Emoji',component:Emoji,auth:false}
     ]},
 ]
 

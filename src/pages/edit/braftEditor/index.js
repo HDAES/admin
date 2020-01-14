@@ -1,9 +1,29 @@
 import React, { useState } from 'react';
 // 引入编辑器组件
 import BraftEditor from 'braft-editor'
+
 // 引入编辑器样式
 import 'braft-editor/dist/index.css'
+import 'braft-extensions/dist/code-highlighter.css'
+import CodeHighlighter from 'braft-extensions/dist/code-highlighter'
+import MaxLength from 'braft-extensions/dist/max-length'
+import HeaderId from 'braft-extensions/dist/header-id'
+import Markdown from 'braft-extensions/dist/markdown'
 import { Card } from 'antd';
+
+
+const options = {
+  defaultValue: 1500, // 指定默认限制数，如不指定则为Infinity(无限)
+  includeEditors: ['braft-editor'], // 指定该模块对哪些BraftEditor生效，不传此属性则对所有BraftEditor有效
+  excludeEditors: ['editor-id-2']  // 指定该模块对哪些BraftEditor无效
+}
+
+BraftEditor.use(CodeHighlighter(options))
+BraftEditor.use(HeaderId(options))
+BraftEditor.use(MaxLength(options))
+BraftEditor.use(Markdown(options))
+
+
 
 
 export default () =>{
@@ -133,6 +153,7 @@ export default () =>{
         <>
             <Card>
                 <BraftEditor
+                    id="braft-editor"
                     media={{uploadFn: myUploadFn}}
                     value={editor}
                     extendControls={extendControls}
