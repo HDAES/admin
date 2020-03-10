@@ -1,14 +1,37 @@
 
+let serverUrl = ''
+
+if(process.env.NODE_ENV === 'development'){
+    serverUrl = 'http://127.0.0.1:3001'
+}else{
+    serverUrl = 'https://blog.xl686.com'
+}
 
 export default {
-    Login:'/api/login',// 登录
-    getRole: '/api/user/getrole',// 获取角色列表
-    addRole:'/api/user/addrole',// 添加角色
-    delRole:'/api/user/delrole',    // 删除角色
-    getRoleMenus:'/api/user/getrolemenus',   // 获取角色的权限列表
-    updataRoleMenus:'/api/user/updatarolemenus',    // 更新角色的权限列表
-    updataPassWord:'/api/user/updatapassword',       // 修改密码
-    addMenus:'/api/manager/addmenus', // 添加菜单
-    delMenus:'/api/manager/delmenus', //删除菜单
-    uploads:'/api/common/uploads',//上传图片
+    serverUrl,
+    Login: serverUrl+'/api/login',// 登录
+    getRole: serverUrl+'/api/user/getrole',// 获取角色列表
+    addRole: serverUrl+'/api/user/addrole',// 添加角色
+    delRole: serverUrl+'/api/user/delrole',    // 删除角色
+    getRoleMenus: serverUrl+'/api/user/getrolemenus',   // 获取角色的权限列表
+    updataRoleMenus: serverUrl+'/api/user/updatarolemenus',    // 更新角色的权限列表
+    updataPassWord: serverUrl+'/api/user/updatapassword',       // 修改密码
+    addMenus: serverUrl+'/api/manager/addmenus', // 添加菜单
+    delMenus: serverUrl+'/api/manager/delmenus', //删除菜单
+    uploads: serverUrl+'/api/common/uploads',//上传图片
+    getsection : serverUrl+'/api/manager/section',//获取博客分类
+    updateSection:serverUrl+'/api/manager/updatasection',   //更新博客分类
+    getTags:  serverUrl+'/api/manager/tags', //获取博客标签
+    deltags: serverUrl+'/api/manager/deltags', //删除二级标签
+    updatetag:serverUrl+'/api/manager/updatetag', //修改二级标签
+    addtag:serverUrl+'/api/manager/addtag', //修改二级标签
+    getArticleDetails :serverUrl+'/api/manager/getarticledetails', //获取文章详情列表
+    updateArticleDetails: serverUrl+'/api/manager/updatearticledetails', //修改文章详情
+    
+    
+
+
+
+    // commom 公共方法
+    upload:'http://blog.xl686.com/api/common/uploads'
 }

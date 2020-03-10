@@ -86,6 +86,7 @@ export default () =>{
     }
     //预览 方法
     function preview(){
+      console.log(editor.toHTML())
         if (window.previewWindow) {
             window.previewWindow.close()
         }

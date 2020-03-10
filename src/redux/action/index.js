@@ -3,7 +3,9 @@ export const type = {
     MENUS:'MENUS',
     TOKEN:'TOKEN',
     USER:'USER',
-    ALL_MENUS:'ALL_MENUS'
+    ALL_MENUS:'ALL_MENUS',
+    SECTION:'SECTION',
+    TAGS:'TAGS'
 }
 // 设置 用户的菜单
 export function getMenus(menus){
@@ -41,3 +43,18 @@ export function switchMenu(menuName){
     }
 }
 
+// 博客分类信息
+export function setSections(section){
+    return {
+        type:type.SECTION,
+        section
+    }
+}
+
+// 博客标签
+export function setTags(tags){
+    return {
+        type:type.TAGS,
+        tags
+    }
+}

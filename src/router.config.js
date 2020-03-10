@@ -16,6 +16,10 @@ import G2 from "./pages/chart/g2";
 import Quill from './pages/edit/quill'
 import BraftEditor from './pages/edit/braftEditor'
 import Emoji from './pages/icon/emoji'
+import BlogSort from './pages/blog/sort'
+import BlogTags from './pages/blog/tags'
+import BlogDetails from './pages/blog/details'
+
 const Routes = [
     {path:'/',name: 'adminLayout', component: Admin, auth: true, routes: [
         {path:'/index', name: 'index', component:Index, auth:false},
@@ -34,7 +38,10 @@ const Routes = [
         {path:'/chart/g2', name:'G2',component:G2,auth:false},
         {path:'/edit/quill', name:'quill',component:Quill,auth:false},
         {path:'/edit/braft',name:'braftEditor',component:BraftEditor,auth:false},
-        {path:'/icon/emoji',name:'Emoji',component:Emoji,auth:false}
+        {path:'/ui/emoji',name:'Emoji',component:Emoji,auth:false},
+        {path:'/blog/sort',name:'BlogSort',component:BlogSort,auth:false},
+        {path:'/blog/tags',name:'BlogTags',component:BlogTags,auth:false},
+        {path:'/blog/details',name:'BlogDetails',component:BlogDetails,auth:false},
     ]},
 ]
 

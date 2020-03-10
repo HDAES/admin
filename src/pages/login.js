@@ -1,7 +1,7 @@
 import React,{ useEffect } from 'react';
 import { Form, Input, Icon, Button } from 'antd';
 import { connect } from 'react-redux'
-import { getMenus, setUser, SetUserToken, setAllMenus } from '../redux/action'
+import { getMenus, setUser, SetUserToken, setAllMenus, setSections,setTags } from '../redux/action'
 import  axios  from '../axios'
 import api from '../axios/api'
 export default connect()(Form.create()(({form,dispatch}) => {
@@ -12,6 +12,7 @@ export default connect()(Form.create()(({form,dispatch}) => {
 
      function submit (){
         form.validateFields( (err) => {
+            
             if(!err){
                axios({method:'POST',url:api.Login,data:form.getFieldsValue()}).then( res=>{
                     dispatch(getMenus(res))
@@ -20,10 +21,21 @@ export default connect()(Form.create()(({form,dispatch}) => {
                     dispatch(SetUserToken(res.TOKEN))
                     dispatch(setUser(res.user))
                     window.location.href='/#/index'
-                })
-                
+                    http()
+                })   
             }
         })   
+    }
+
+    function http(){
+        //获取分类信息
+        axios({url:api.getsection}).then((res) =>{
+            dispatch(setSections(res))
+        })
+        // 获取标签数据
+        axios({url:api.getTags}).then((res)=>{
+            dispatch(setTags(res.tags))
+        })
     }
     const { getFieldDecorator } =form;
     return <div className="login">
