@@ -27,8 +27,8 @@ export default {
     addtag:serverUrl+'/api/manager/addtag', //修改二级标签
     getArticleDetails :serverUrl+'/api/manager/getarticledetails', //获取文章详情列表
     updateArticleDetails: serverUrl+'/api/manager/updatearticledetails', //修改文章详情
-    
-    
+    addArticleDetails: serverUrl+'/api/manager/addarticledetails', //修改文章详情
+   
 
 
 

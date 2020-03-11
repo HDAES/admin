@@ -1,6 +1,6 @@
 import React, { useEffect,useState} from 'react'
 import { Card, Form,Input, Button, Table,Modal,Select,Upload,Icon,message,Radio} from 'antd'
-import { getArticleList,updateArticle } from '../../../axios/http'
+import { getArticleList,updateArticle,addArticle } from '../../../axios/http'
 import api from '../../../axios/api'
 import { formatTime } from '../../../utils'
 import { connect } from 'react-redux'
@@ -8,15 +8,16 @@ const mapStateToProps = state =>{
     return {tags:state.tags,section:state.section}
 }
 export default connect(mapStateToProps)(Form.create()(({section,tags,form}) =>{
-
     const [articleList,setArticleList] = useState() 
     const [editVisible,setEditVisible] = useState(false)  // 编辑Modal框
-    const [editArticle,setEditArticle] = useState(0)      // 选中的索引下标
+    const [editArticle,setEditArticle] = useState(0)      // 选中的值
     const [isEdit,setIsEdit] = useState(true) //判断修改还是增加 true为修改 
+    const [tableLoading,setTableLoading] = useState(true)
     const { getFieldDecorator } = form
     useEffect(()=>{
         getArticleList().then((res) =>{
             setArticleList(res.articleList)
+            setTableLoading(false)
         })
     },[])
 
@@ -34,9 +35,27 @@ export default connect(mapStateToProps)(Form.create()(({section,tags,form}) =>{
                 setArticleList(res)
                 form.resetFields()
             })
+        }else{
+            addArticle({
+                ...editArticle,
+                ...temp
+            }).then((res)=>{
+                message.success('添加成功')
+                setEditVisible(false)
+                setArticleList(res)
+                form.resetFields()
+            })
         }
         
     }
+    // 打开添加弹框
+    function addArticleModal(){
+        setEditArticle({id:0,f_id:1,s_id:1,title:'',description:'',type:0,image:''})
+        setEditVisible(true)
+        setIsEdit(false)
+    }
+    //搜索按钮
+   
     const columns =[{
         title:"id",
         dataIndex:"id"
@@ -105,8 +124,8 @@ export default connect(mapStateToProps)(Form.create()(({section,tags,form}) =>{
     };
 
     return <Card title="文章详情">
-            <Control form={form}/>
-            <Table columns={columns} dataSource={articleList} rowKey="id"/>
+            <Control form={form} addArticleModal={addArticleModal}/>
+            <Table columns={columns} dataSource={articleList} rowKey="id" loading={tableLoading}/>
         
         {
             editVisible?<Modal
@@ -115,14 +134,14 @@ export default connect(mapStateToProps)(Form.create()(({section,tags,form}) =>{
                 style={{ top: 20 }}
                 visible={editVisible}
                 onOk={savaArticle}
-                onCancel={()=>setEditVisible(false)}
+                onCancel={()=>{setEditVisible(false);form.resetFields()}}
             >
             <Form {...formItemLayout}>
-                <Form.Item label="文章ID"><Input placeholder={editArticle.id}/></Form.Item>
+                <Form.Item label="文章ID"><Input placeholder={editArticle.id} disabled/></Form.Item>
                 <Form.Item label="分类">
                     {
                         getFieldDecorator('f_id', {initialValue:editArticle.f_id})
-                        (<Select>{
+                        (<Select onChange={(val)=>{setEditArticle({...editArticle,f_id:val})}}>{
                                     section.map((item)=>{
                                     return <Select.Option value={item.id}key={item.id}>{item.name}</Select.Option>
                                     }) 
@@ -131,7 +150,7 @@ export default connect(mapStateToProps)(Form.create()(({section,tags,form}) =>{
                 </Form.Item>
                 <Form.Item label="标签">
                     {
-                        getFieldDecorator('s_id', {initialValue:editArticle.f_id})
+                        getFieldDecorator('s_id', {initialValue:editArticle.s_id})
                         (<Select>{
                                 tags.map((item)=>{
                                     if(item.f_id === editArticle.f_id){
@@ -183,7 +202,7 @@ export default connect(mapStateToProps)(Form.create()(({section,tags,form}) =>{
     </Card>  
 }))
 
-function Control({form}){
+function Control({form,addArticleModal}){
     const { getFieldDecorator } = form
     return <Form layout="inline" style={{marginBottom:20}}>
         <Form.Item label="标题">
@@ -198,7 +217,7 @@ function Control({form}){
             <Button type="primary">搜索</Button>
         </Form.Item>
         <Form.Item label="">
-            <Button type="primary">添加</Button>
+            <Button type="primary" onClick={()=>addArticleModal()}>添加</Button>
         </Form.Item>
         <Form.Item label="">
             <Button type="primary">刷新</Button>

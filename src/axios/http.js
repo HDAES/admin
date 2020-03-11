@@ -32,12 +32,21 @@ export function getArticleList(){
 }
 
 // 修改文章详情
-
 export function updateArticle(newArticle){
     console.log(newArticle)
     return axios({
         method:'POST',
         url:api.updateArticleDetails,
+        data:newArticle
+    })
+}
+
+//添加文章详情
+export function addArticle(newArticle){
+    console.log(newArticle)
+    return axios({
+        method:'POST',
+        url:api.addArticleDetails,
         data:newArticle
     })
 }
