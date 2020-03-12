@@ -19,6 +19,7 @@ import Emoji from './pages/icon/emoji'
 import BlogSort from './pages/blog/sort'
 import BlogTags from './pages/blog/tags'
 import BlogDetails from './pages/blog/details'
+import BlogMusic from './pages/blog/music'
 
 const Routes = [
     {path:'/',name: 'adminLayout', component: Admin, auth: true, routes: [
@@ -42,6 +43,8 @@ const Routes = [
         {path:'/blog/sort',name:'BlogSort',component:BlogSort,auth:false},
         {path:'/blog/tags',name:'BlogTags',component:BlogTags,auth:false},
         {path:'/blog/details',name:'BlogDetails',component:BlogDetails,auth:false},
+        {path:'/blog/music',name:'BlogMusic',component:BlogMusic,auth:false},
+        
     ]},
 ]
 

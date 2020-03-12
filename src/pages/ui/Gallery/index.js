@@ -12,7 +12,7 @@ export default () =>{
         for(let i = 0; i<5; i++){
             list[i] = []
             for(let j = 0; j<5; j++){
-                list[i][j] = <Card key={i-j} onClick={() => handleClick(i,j)}  style={{marginBottom:10}}  cover={<img src={imgSrcPrefix+i+j+'.png?v='+Date.parse(new  Date())} alt="React"/>}>
+                list[i][j] = <Card key={i-j} onClick={() => handleClick(i,j)}  style={{marginBottom:10}}  cover={<img src={imgSrcPrefix+i+j+'.png'} alt="React"/>}>
                        <Card.Meta title="React Admin" description="I'm HADES"/>
                 </Card>
             }
@@ -23,7 +23,7 @@ export default () =>{
     function handleClick(i,j){
         setVisible(true)
         console.log(i)
-        setImgUrl(imgSrcPrefix+i+j+'.png?v='+Date.parse(new  Date()))
+        setImgUrl(imgSrcPrefix+i+j+'.png')
     }
     return(
         <div className="gallery-card">

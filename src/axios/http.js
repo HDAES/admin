@@ -43,10 +43,49 @@ export function updateArticle(newArticle){
 
 //添加文章详情
 export function addArticle(newArticle){
-    console.log(newArticle)
     return axios({
         method:'POST',
         url:api.addArticleDetails,
         data:newArticle
+    })
+}
+
+//获取文章
+export function getArticle(id){
+    return axios({
+        method:'POST',
+        url:api.getArticle,
+        data:id
+    })
+}
+//修改或添加文章
+export function addUpdateArticle(options){
+    return axios({
+        method:'POST',
+        url:api.addUpdateArticle,
+        data:options
+    })
+}
+//获取音乐类别
+export function getMusicList(){
+    return axios({
+        method:'GET',
+        url:api.getMusicList
+    })
+}
+//添加音乐
+export function addMusicAxios(options){
+    return axios({
+        method:'POST',
+        url:api.addMusic,
+        data:options
+    })
+}
+
+export function delMusicAxios(options){
+    return axios({
+        method:'POST',
+        url:api.delMusic,
+        data:options
     })
 }

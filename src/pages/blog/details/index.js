@@ -1,6 +1,7 @@
 import React, { useEffect,useState} from 'react'
 import { Card, Form,Input, Button, Table,Modal,Select,Upload,Icon,message,Radio} from 'antd'
-import { getArticleList,updateArticle,addArticle } from '../../../axios/http'
+import Editor from 'for-editor';
+import { getArticleList,updateArticle,addArticle,getArticle,addUpdateArticle} from '../../../axios/http'
 import api from '../../../axios/api'
 import { formatTime } from '../../../utils'
 import { connect } from 'react-redux'
@@ -8,9 +9,10 @@ const mapStateToProps = state =>{
     return {tags:state.tags,section:state.section}
 }
 export default connect(mapStateToProps)(Form.create()(({section,tags,form}) =>{
-    const [articleList,setArticleList] = useState() 
-    const [editVisible,setEditVisible] = useState(false)  // 编辑Modal框
-    const [editArticle,setEditArticle] = useState(0)      // 选中的值
+    const [articleList,setArticleList] = useState()     //所有文章
+    const [editVisible,setEditVisible] = useState(false)  // 详情编辑Modal框
+    const [artEditVisible,setArtEditVisible] = useState(false)  //文章编辑Modal框
+    const [editArticle,setEditArticle] = useState()      // 选中的值
     const [isEdit,setIsEdit] = useState(true) //判断修改还是增加 true为修改 
     const [tableLoading,setTableLoading] = useState(true)
     const { getFieldDecorator } = form
@@ -55,7 +57,22 @@ export default connect(mapStateToProps)(Form.create()(({section,tags,form}) =>{
         setIsEdit(false)
     }
     //搜索按钮
-   
+    function search(){
+        const temp = form.getFieldsValue()
+        if(temp.filter_title===undefined){
+            message.error('请输入关键词')
+        }else{
+          
+        }
+    }
+    //刷新
+    function refresh(){
+        setTableLoading(true)
+        getArticleList().then((res) =>{
+            setArticleList(res.articleList)
+            setTableLoading(false)
+        })
+    }
     const columns =[{
         title:"id",
         dataIndex:"id"
@@ -93,7 +110,9 @@ export default connect(mapStateToProps)(Form.create()(({section,tags,form}) =>{
         render:(e)=>{
             return <div>
                 <Button type='primary' onClick={()=>{setEditVisible(true);setEditArticle(e);setIsEdit(true)}}>编辑</Button>
-                <Button type="danger" ghost style={{marginLeft:20}}>删除</Button>
+                <Button type="primary" ghost style={{margin:"0 20px"}} onClick={()=>{setArtEditVisible(true);setEditArticle(e)}}>文章</Button>
+                <Button type="danger" ghost >删除</Button>
+                
             </div>
         }
     }]
@@ -124,7 +143,7 @@ export default connect(mapStateToProps)(Form.create()(({section,tags,form}) =>{
     };
 
     return <Card title="文章详情">
-            <Control form={form} addArticleModal={addArticleModal}/>
+            <Control form={form} addArticleModal={addArticleModal} refresh={refresh} search={search}/>
             <Table columns={columns} dataSource={articleList} rowKey="id" loading={tableLoading}/>
         
         {
@@ -198,11 +217,12 @@ export default connect(mapStateToProps)(Form.create()(({section,tags,form}) =>{
             </Form>
             </Modal>:null
         }
+        { artEditVisible?<ArtEdit visible={artEditVisible} setVisible ={setArtEditVisible} editArticle={editArticle} refresh={refresh}/>:null}
         
     </Card>  
 }))
 
-function Control({form,addArticleModal}){
+function Control({form,addArticleModal,refresh,search}){
     const { getFieldDecorator } = form
     return <Form layout="inline" style={{marginBottom:20}}>
         <Form.Item label="标题">
@@ -214,14 +234,59 @@ function Control({form,addArticleModal}){
             }
         </Form.Item>
         <Form.Item label="">
-            <Button type="primary">搜索</Button>
+            <Button type="primary" onClick={()=>search()}>搜索</Button>
         </Form.Item>
         <Form.Item label="">
             <Button type="primary" onClick={()=>addArticleModal()}>添加</Button>
         </Form.Item>
         <Form.Item label="">
-            <Button type="primary">刷新</Button>
+            <Button type="primary" onClick={()=>{refresh()}}>刷新</Button>
         </Form.Item>
     </Form>
+}
+
+
+//文章编辑
+function ArtEdit({visible,setVisible,editArticle,refresh}){
+    const [article,setArticle] = useState()
+    
+    useEffect(()=>{
+        getArticle({c_id:editArticle.c_id}).then(res=>{
+            if(res.length>0){
+                setArticle(res[0].context)
+            }  
+        })
+    },[editArticle.c_id])
+
+    //保存修改 
+    function sava(){
+        console.log('123')
+        addUpdateArticle({
+            id:editArticle.id,
+            c_id:editArticle.c_id,
+            context:article
+        }).then(res=>{
+            message.success(res.message)
+            setVisible(false)
+            refresh()
+        })
+    }
+    return <Modal
+        width={1000}
+        title={123}
+        visible={visible}
+        okText="保存"
+        cancelText="取消"
+        onOk={sava}
+        onCancel={ ()=>setVisible(false)}
+        > 
+            <Editor 
+                preview={true}
+                subfield={true}
+                value={article} 
+                onChange={(value)=>setArticle(value)}
+                    />
+        
+    </Modal>
 }
 

@@ -28,10 +28,14 @@ export default {
     getArticleDetails :serverUrl+'/api/manager/getarticledetails', //获取文章详情列表
     updateArticleDetails: serverUrl+'/api/manager/updatearticledetails', //修改文章详情
     addArticleDetails: serverUrl+'/api/manager/addarticledetails', //修改文章详情
-   
-
-
+    getArticle:serverUrl+'/api/manager/getarticle' , //获取文章
+    addUpdateArticle: serverUrl+'/api/manager/addupdatearticle', //修改或添加文章
+    getMusicList: serverUrl+'/api/manager/getmusiclist',    //获取音乐列表
+    addMusic:serverUrl+'/api/manager/addmusic',    //添加音乐
+    delMusic:serverUrl+'/api/manager/delmusic',    //删除音乐
 
     // commom 公共方法
-    upload:'http://blog.xl686.com/api/common/uploads'
+    upload:'http://blog.xl686.com/api/common/uploads',
+    //搜索方法
+    searchMusic:'http://music.xl686.com/search'
 }
