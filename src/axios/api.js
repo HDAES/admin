@@ -33,7 +33,15 @@ export default {
     getMusicList: serverUrl+'/api/manager/getmusiclist',    //获取音乐列表
     addMusic:serverUrl+'/api/manager/addmusic',    //添加音乐
     delMusic:serverUrl+'/api/manager/delmusic',    //删除音乐
-
+    overheadMusic:serverUrl+'/api/manager/overheadmusic',    //顶置音乐
+    getSaying:serverUrl+'/api/manager/getsaying',    //获取名言
+    delSaying:serverUrl+'/api/manager/delsaying',    //删除名言
+    updateSaying:serverUrl+'/api/manager/updatesaying',    //修改名言
+    addSaying:serverUrl+'/api/manager/addsaying',    //新增名言
+    getLink:serverUrl+'/api/manager/getlink',    //获取链接列表
+    overheadLink:serverUrl+'/api/manager/overheadlink',    //顶置链接
+    passLink:serverUrl+'/api/manager/passlink',    //通过链接申请
+    
     // commom 公共方法
     upload:'http://blog.xl686.com/api/common/uploads',
     //搜索方法

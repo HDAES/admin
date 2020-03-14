@@ -20,6 +20,8 @@ import BlogSort from './pages/blog/sort'
 import BlogTags from './pages/blog/tags'
 import BlogDetails from './pages/blog/details'
 import BlogMusic from './pages/blog/music'
+import BlogSaying from './pages/blog/saying'
+import BlogLink from './pages/blog/link'
 
 const Routes = [
     {path:'/',name: 'adminLayout', component: Admin, auth: true, routes: [
@@ -44,6 +46,8 @@ const Routes = [
         {path:'/blog/tags',name:'BlogTags',component:BlogTags,auth:false},
         {path:'/blog/details',name:'BlogDetails',component:BlogDetails,auth:false},
         {path:'/blog/music',name:'BlogMusic',component:BlogMusic,auth:false},
+        {path:'/blog/saying',name:'BlogSaying',component:BlogSaying,auth:false},
+        {path:'/blog/link',name:'BlogLink',component:BlogLink,auth:false},
         
     ]},
 ]

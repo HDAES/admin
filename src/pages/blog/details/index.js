@@ -260,7 +260,6 @@ function ArtEdit({visible,setVisible,editArticle,refresh}){
 
     //保存修改 
     function sava(){
-        console.log('123')
         addUpdateArticle({
             id:editArticle.id,
             c_id:editArticle.c_id,

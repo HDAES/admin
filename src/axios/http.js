@@ -30,7 +30,6 @@ export function getArticleList(){
         url:api.getArticleDetails
     }) 
 }
-
 // 修改文章详情
 export function updateArticle(newArticle){
     console.log(newArticle)
@@ -40,7 +39,6 @@ export function updateArticle(newArticle){
         data:newArticle
     })
 }
-
 //添加文章详情
 export function addArticle(newArticle){
     return axios({
@@ -49,7 +47,6 @@ export function addArticle(newArticle){
         data:newArticle
     })
 }
-
 //获取文章
 export function getArticle(id){
     return axios({
@@ -81,11 +78,73 @@ export function addMusicAxios(options){
         data:options
     })
 }
-
+//删除音乐
 export function delMusicAxios(options){
     return axios({
         method:'POST',
         url:api.delMusic,
+        data:options
+    })
+}
+//顶置音乐
+export function overheadMusicAxios(options){
+    return axios({
+        method:'POST',
+        url:api.overheadMusic,
+        data:options
+    }) 
+}
+// 获取名言
+export function getSayingAxios(){
+    return axios({
+        method:'GET',
+        url:api.getSaying
+    }) 
+}
+//删除名言
+export function delSayingAxios(options){
+    return axios({
+        method:'POST',
+        url:api.delSaying,
+        data:options
+    }) 
+}
+//编辑名言
+export function updateSayingAxios(options){
+    return axios({
+        method:'POST',
+        url:api.updateSaying,
+        data:options
+    }) 
+}
+//新增名言
+export function addSayingAxios(options){
+    return axios({
+        method:'POST',
+        url:api.addSaying,
+        data:options
+    }) 
+}
+//获取友链列表
+export function getLinkAxios(){
+    return axios({
+        method:'GET',
+        url:api.getLink
+    }) 
+}
+//顶置
+export function overheadLinkAxios(options){
+    return axios({
+        method:'POST',
+        url:api.overheadLink,
+        data:options
+    }) 
+}
+//通过申请
+export function passLinkAxios(options){
+    return axios({
+        method:'POST',
+        url:api.passLink,
         data:options
     })
 }

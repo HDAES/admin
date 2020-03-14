@@ -46,7 +46,7 @@ export default connect()(Form.create()(({form,dispatch}) => {
                 <Form.Item>
                     {
                         getFieldDecorator('userName',{
-                            initialValue:'hades',
+                            initialValue:'',
                             rules:[
                                 { required: true, message: 'Please input your username!' },
                                 { min:5,max:10, message: '长度不在范围内' },
@@ -60,7 +60,7 @@ export default connect()(Form.create()(({form,dispatch}) => {
                 <Form.Item>
                     {
                         getFieldDecorator('passWord',{
-                            initialValue:'123456',
+                            initialValue:'',
                             rules:[
                                 { required: true, message: 'Please input your password!' },
                                 { min:5,max:10, message: '长度不在范围内' },
