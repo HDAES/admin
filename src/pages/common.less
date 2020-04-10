@@ -2,27 +2,33 @@
 .login {
   position: relative;
   height: 100%;
-  // background: url(/assets/backgrpund.jpg);
-  .back-image {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 50%;
-    z-index: 1;
-    background-color: rgba(255, 255, 255, 0.5);
-  }
-  .back-image::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
+  background-color: #2d3a4b;
+  .back-image{
     width: 100%;
     height: 100%;
-    filter: blur(3px);
-    // background: url(/assets/backgrpund.jpg) ;
-    z-index: -1;
+    object-fit: cover;
   }
+  //background: url('');
+  // .back-image {
+  //   position: absolute;
+  //   left: 0;
+  //   top: 0;
+  //   bottom: 0;
+  //   width: 50%;
+  //   z-index: 1;
+  //   background-color: rgba(255, 255, 255, 0.5);
+  // }
+  // .back-image::after {
+  //   content: "";
+  //   position: absolute;
+  //   left: 0;
+  //   top: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   filter: blur(3px);
+  //   background: url('http://qiniu.xl686.com/freddy-castro-u3ajSXhZM_U-unsplash.jpg');
+  //   z-index: -1;
+  // }
   .login-form {
     position: absolute;
     top: 50%;
@@ -30,16 +36,25 @@
     transform: translateY(-50%);
     width: 400px;
     padding: 0 40px;
-    background-color: #ffffff;
+    
     border-radius: 12px;
     z-index: 2;
     .title {
       padding: 20px 0;
       text-align: center;
       font-size: 24px;
+      color: #FFFFFF;
     }
     .ant-form-item-control {
       text-align: center;
+    }
+    #userName,#passWord{
+      background-color: #283443;
+      color: #FFFFFF;
+      padding-left: 50px;
+    }
+    .anticon-user,.anticon-lock,.anticon-eye-invisible {
+      color: #FFFFFF;
     }
   }
 }
@@ -189,6 +204,48 @@ a:hover {
 .avatar-uploader > .ant-upload {
   width: 128px;
   height: 128px;
+}
+
+
+//index
+.count-grounp{
+  display: flex;
+  .card{
+    flex: 1;
+  }
+  .card:nth-child(2){
+    margin: 0 20px;
+  }
+  .card:nth-child(3){
+    margin-right: 20px;
+  }
+  .card-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .card-count{
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .card-name{
+      line-height: 18px;
+      color: rgba(0,0,0,.45);
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+  }
+  .card1:hover .card-icon{
+    color: red;
+  }
+
+  .icon-containr1{
+    padding: 10px;
+    .card-icon{
+      color: #40c9c6;
+      font-size: 36px;
+    }
+  }
 }
 
 

@@ -2,7 +2,8 @@
 let serverUrl = ''
 
 if(process.env.NODE_ENV === 'development'){
-    serverUrl = 'http://127.0.0.1:3001'
+    //serverUrl = 'http://127.0.0.1:3001'
+    serverUrl = 'https://blog.xl686.com'  
 }else{
     serverUrl = 'https://blog.xl686.com'
 }

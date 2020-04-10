@@ -39,35 +39,35 @@ export default connect()(Form.create()(({form,dispatch}) => {
     }
     const { getFieldDecorator } =form;
     return <div className="login">
-        <div className="back-image" />
+        {/* <img src="http://qiniu.xl686.com/tim-mossholder-fwqB5mJNOcE-unsplash.jpg" className="back-image" alt=""/> */}
         <div className="login-form">
-            <div className="title">Login</div>
+            <div className="title">系统登录</div>
             <Form>
                 <Form.Item>
                     {
                         getFieldDecorator('userName',{
-                            initialValue:'',
+                            initialValue:'youke',
                             rules:[
                                 { required: true, message: 'Please input your username!' },
                                 { min:5,max:10, message: '长度不在范围内' },
                                 { pattern:/^\w+$/g,message:'用户名必须为字母或者数组'}
                             ]
                         })(
-                            <Input prefix={<Icon type="user" />} placeholder="请输入用户名" />
+                            <Input size="large" prefix={<Icon type="user" />} placeholder="请输入用户名" />
                         )
                     }
                 </Form.Item>
                 <Form.Item>
                     {
                         getFieldDecorator('passWord',{
-                            initialValue:'',
+                            initialValue:'123456',
                             rules:[
                                 { required: true, message: 'Please input your password!' },
                                 { min:5,max:10, message: '长度不在范围内' },
                                 { pattern:/^\w+$/g,message:'用户名必须为字母或者数组'}
                             ]
                         })(
-                            <Input prefix={<Icon type="lock" />} placeholder="请输入用户名" />
+                            <Input.Password  size="large" prefix={<Icon type="lock" />} placeholder="请输密码" />
                         )
                     }
                 </Form.Item>

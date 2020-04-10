@@ -43,39 +43,75 @@ export default () => {
 
 const IconList = [
   {
-    title: "方向性图标",
+    title: "图标",
     list: [
       {
-        name: "左边",
         type: "step-backward"
       },
       {
-        name: "右边",
         type: "step-forward"
       },
+      
       {
-        name: "左边",
-        type: "step-backward"
+        type: "fast-backward"
       },
       {
-        name: "右边",
-        type: "step-forward"
+        type: "fast-forward"
       },
       {
-        name: "左边",
-        type: "step-backward"
+        type: "shrink"
       },
       {
-        name: "右边",
-        type: "step-forward"
+        type: "arrows-alt"
       },
       {
-        name: "左边",
-        type: "step-backward"
+        type: "area-chart"
       },
       {
-        name: "右边",
-        type: "step-forward"
+        type: "bar-chart"
+      },
+      {
+        type: "dot-chart"
+      },{
+        type: "line-chart"
+      },{
+        type: "radar-chart"
+      },{
+        type: "android"
+      },
+      {
+        type: "apple"
+      },{
+        type: "windows"
+      },
+      {
+        type: "github"
+      },
+      {
+        type: "dingding"
+      },
+      {
+        type: "weibo-circle"
+      },
+      {
+        type: "wechat"
+      },
+      {
+        type: "alibaba"
+      },
+      {
+        type: "wifi"
+      },{
+        type: "global"
+      },{
+        type: "barcode"
+      },
+      {
+        type: "red-envelope"
+      },{
+        type: "compass"
+      },{
+        type: "camera"
       }
     ]
   }
