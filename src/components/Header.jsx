@@ -38,7 +38,7 @@ export default connect(mapStateToProps)(({user}) => {
    
     switch(e.key){
         case '1' :
-            window.location.href='/#/index'
+            window.open('http://www.xl686.com/about')
             break;
         case '2' :
             window.open('https://github.com/HDAES/admin')
@@ -71,8 +71,8 @@ export default connect(mapStateToProps)(({user}) => {
             <Icon className="badge-icon" type="bell" />
         </Badge>
        
-        <Dropdown overlay={menu}>
-           <div className="avatar"><Avatar  size={36} icon="user" />{user.name}</div>
+        <Dropdown overlay={menu} >
+           <div className="avatar" ><Avatar  size={36} icon="user" /> <span style={{marginLeft:5}}>{user.name}</span></div>
         </Dropdown> 
     </div>
   );
